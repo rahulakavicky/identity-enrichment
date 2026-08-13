@@ -6,17 +6,22 @@ and exposes them through a FastAPI API.
 
 ## Architecture
 
-Active Directory
-        |
-        | LDAPS
-        v
-Identity Syncer
-        |
-        v
-Identity Database
-        |
-        v
-FastAPI
-        |
-        v
-Security/XDR Platform
+                 ON-PREM
+┌──────────────────────────────────┐
+│                                  │
+│  Active Directory                │
+│        │                         │
+│        │ LDAPS                   │
+│        ▼                         │
+│  Identity Enrichment             │
+│  Middleware                      │
+│        │                         │
+│        ▼                         │
+│  Local Identity Store            │
+│  (only required attributes)      │
+│                                  │
+└──────────────────────────────────┘
+                 │
+                 │ HTTPS API
+                 ▼
+        Cloud Security Platform
